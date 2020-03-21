@@ -14,5 +14,5 @@
 - [redux-form](https://redux-form.com/7.4.2/)
 - [reselect](https://github.com/reduxjs/reselect)
 
-Ссылка на приложение [Todo-Lite](my-todo-lite.surge.sh)
+Ссылка на приложение [Todo-Lite](http://my-todo-lite.surge.sh/)
 
