@@ -7,7 +7,7 @@ const getTasks = state => state.tasks;
 
 const tasksList = createSelector(
     getTasks,
-    (tasks) => Object.values(tasks)
+    (tasks) => Object.values(tasks).reverse()
 );
 
 const activeTasks = createSelector(

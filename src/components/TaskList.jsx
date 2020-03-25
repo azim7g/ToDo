@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import EditForm from './EditForm';
 
 const filter = [
@@ -29,40 +30,42 @@ export default class TaskList extends Component {
     return (
         <>
           <h3 className="align-items-center mt-4 title">{this.state.filter.title}</h3>
-          {
-            tasks.map(task => {
-              const color = task.status === 'active' ? 'violet' : 'blue';
-              return (
-                  <div className="col-12" key={task.id}>
+          <TransitionGroup className="col-12">
+            {
+              tasks.map(task => {
+                const color = task.status === 'active' ? 'violet' : 'blue';
+                return (
+                  <CSSTransition key={task.id} timeout={1000}>
                     <div className={`card mt-4 text-white ${color}`}>
                       {task.isEditMode
-                          ? <EditForm task={task}/>
-                          : <>
-                            <div className="card-header row justify-content-between overflow-hidden">
-                              <h4 className="ml-3">{task.title}</h4>
-                              <input
-                                  type="checkbox"
-                                  checked={task.status === 'active' ? false : true}
-                                  className="checkbox"
-                                  onChange={this.checkboxHandler(task.id)} />
-                            </div>
-                            {task.body
-                                ? <div className="card-body">
-                                    <p className="card-text">{task.body}</p>
-                                  </div>
-                                : null
-                            }
-                          </>
+                        ? <EditForm task={task} />
+                        : <>
+                              <div className="card-header row justify-content-between overflow-hidden">
+                                <h4 className="ml-3">{task.title}</h4>
+                                <input
+                                    type="checkbox"
+                                    checked={task.status === 'active' ? false : true}
+                                    className="checkbox"
+                                    onChange={this.checkboxHandler(task.id)} />
+                              </div>
+                              {task.body
+                                  ? <div className="card-body">
+                                      <p className="card-text">{task.body}</p>
+                                    </div>
+                                  : null
+                              }
+                            </>
                       }
-                      <div className="card-footer">
-                        <button type="button" className="btn orange" onClick={this.deleteTask(task.id)} >Удалить </button>
-                        <button type="button" className="btn orange" onClick={this.changeMode(task.id)} >Изменить</button>
-                      </div>
+                        <div className="card-footer">
+                          <button type="button" className="btn orange" onClick={this.deleteTask(task.id)} >Удалить </button>
+                          <button type="button" className="btn orange" onClick={this.changeMode(task.id)} >Изменить</button>
+                        </div>
                     </div>
-                  </div>
-              )
-            })
-          }
+                  </CSSTransition>
+                )
+              })
+            }
+          </TransitionGroup>
         </>
     )
   };
